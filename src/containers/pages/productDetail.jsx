@@ -35,6 +35,8 @@ import WishlistHeart from "../../components/product/WishlistHeart";
 
 import Stars from '../../components/product/Stars'
 
+import DOMPurify from "dompurify";
+
 const ProductDetail =({
   get_product,
   get_related_products,
@@ -204,7 +206,8 @@ const ProductDetail =({
                   Description
                 </h3>
                 <div className="text-base text-gray-700 space-y-6" 
-                  dangerouslySetInnerHTML={{ __html: product && product.description }}
+                  dangerouslySetInnerHTML={{ 
+                    __html: DOMPurify.sanitize(product && product.description) }}
                 />
               </div>
               {/* Cambiar a coleres perosonalizados por producto */}

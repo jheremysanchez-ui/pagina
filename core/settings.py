@@ -2,6 +2,7 @@ from pathlib import Path
 import os
 import environ
 from datetime import timedelta
+from corsheaders.defaults import default_headers
 
 env = environ.Env()
 environ.Env.read_env()
@@ -12,7 +13,7 @@ ENVIRONMENT = env
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -22,12 +23,15 @@ DOMAIN = os.environ.get('DOMAIN')
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
-    '*'
+    '192.168.19.138',
+    'lapp-virtual-machine.tail71f65f.ts.net',
+    'lapp-virtual-machine',
+    '100.105.44.111'
     ]
 
-RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-if RENDER_EXTERNAL_HOSTNAME:
-    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+#RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+#if RENDER_EXTERNAL_HOSTNAME:
+ #   ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 # Application definition
 DJANGO_APPS = [
@@ -79,6 +83,7 @@ CKEDITOR_CONFIGS = {
 CKEDITOR_UPLOAD_PATH = "/media/"
 
 MIDDLEWARE = [
+    #'csp.middleware.CSPMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -118,20 +123,60 @@ DATABASES = {
 }
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
-CORS_ORIGIN_WHITELIST = [
+CORS_ALLOWED_ORIGINS  = [
     'http://localhost:8000',
     'http://localhost:3000',
     'http://127.0.0.1:8000',
     'http://127.0.0.1:3000',
-
+    'http://192.168.19.138:8000',
+    'http://192.168.19.138:3000',
+    'http://lapp-virtual-machine.tail71f65f.ts.net:8000',
+    'http://lapp-virtual-machine.tail71f65f.ts.net:3000',
+    'http://100.105.44.111:8000',
+    'http://100.105.44.111:3000'
 ]
+
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    "authorization",
+]
+
 
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8000',
     'http://localhost:3000',
     'http://127.0.0.1:8000',
     'http://127.0.0.1:3000',
+    'http://192.168.19.138:8000',
+    'http://192.168.19.138:3000',
+    'http://lapp-virtual-machine.tail71f65f.ts.net:8000',
+    'http://lapp-virtual-machine.tail71f65f.ts.net:3000',
+    'http://100.105.44.111:8000',
+    'http://100.105.44.111:3000'
 ]
+
+# En producción, acctivar estas opciones de seguridad
+
+SESSION_COOKIE_SECURE = False
+
+CSRF_COOKIE_SECURE = False
+
+SESSION_COOKIE_HTTPONLY = False
+
+SECURE_HSTS_SECONDS = 31536000
+
+SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+
+SECURE_HSTS_PRELOAD = False
+
+SECURE_CONTENT_TYPE_NOSNIFF = False
+
+SECURE_SSL_REDIRECT = False
+
+X_FRAME_OPTIONS = 'DENY'
+
+SECURE_BROWSER_XSS_FILTER = False
+
+
 
 PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.Argon2PasswordHasher",
@@ -198,9 +243,9 @@ AUTHENTICATION_BACKENDS = (
 
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT', ),
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10080),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
-    'ROTATE_REFRESFH_TOKENS':True,
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=900),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESFH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
     'AUTH_TOKEN_CLASSES': (
         'rest_framework_simplejwt.tokens.AccessToken',

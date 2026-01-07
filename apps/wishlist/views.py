@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -34,7 +35,6 @@ class GetItemsView(APIView):
                 {'error': 'Something went wrong when retrieving wishlist items'},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
-
 
 class AddItemView(APIView):
     def post(self, request, format=None):
@@ -116,7 +116,6 @@ class AddItemView(APIView):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
-
 class GetItemTotalView(APIView):
     def get(self, request, format=None):
         user = self.request.user
@@ -134,7 +133,6 @@ class GetItemTotalView(APIView):
                 {'error': 'Something went wrong when retrieving total number of wishlist items'},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
-
 
 class RemoveItemView(APIView):
     def delete(self, request, format=None):

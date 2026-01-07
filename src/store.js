@@ -12,4 +12,5 @@ const store = configureStore({
     preloadedState: initialState
 });
 
+
 export default store;

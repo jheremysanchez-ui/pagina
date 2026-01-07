@@ -33,7 +33,6 @@ class ProductDetailView(APIView):
                 {'error': 'El producto con este ID no existe'},
                 status=status.HTTP_404_NOT_FOUND)
 
-
 class ListProductsView(APIView):
     permission_classes = (permissions.AllowAny, )
 
@@ -76,7 +75,6 @@ class ListProductsView(APIView):
             return Response(
                 {'error': 'No hay productos en la lisat'},
                 status=status.HTTP_404_NOT_FOUND)
-
 
 class ListSearchView(APIView):
     permission_classes = (permissions.AllowAny, )
@@ -146,7 +144,6 @@ class ListSearchView(APIView):
         search_results = ProductSerializer(search_results, many=True)
         return Response({'search_products': search_results.data}, status=status.HTTP_200_OK)
 
-
 class ListRelatedView(APIView):
     permission_classes = (permissions.AllowAny, )
 
@@ -211,7 +208,6 @@ class ListRelatedView(APIView):
             return Response(
                 {'error': 'No se encontraron productos relacionados'},
                 status=status.HTTP_200_OK)
-
 
 class ListBySearchView(APIView):
     permission_classes = (permissions.AllowAny, )

@@ -6,7 +6,7 @@ from django.conf import settings
 
 # Crea tu modelo aqui.
 
-#domain = settings.DOMAIN
+domain = settings.DOMAIN
 
 class Product(models.Model):
     name = models.CharField(max_length=255)
