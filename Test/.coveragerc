@@ -1,8 +1,0 @@
-[run]
-omit =
-    */migrations/*
-    */__init__.py
-    */apps/*/urls.py
-    */apps/*/admin.py
-    */apps/*/apps.py
-    */manage.py
