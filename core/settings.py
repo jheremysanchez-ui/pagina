@@ -121,6 +121,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     "default": env.db("DATABASE_URL", default="postgres:///pagina"),
 }
+
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
 CORS_ALLOWED_ORIGINS  = [
