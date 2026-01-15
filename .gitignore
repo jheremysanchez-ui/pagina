@@ -6,7 +6,8 @@
 
 # testing
 /coverage
-/.coverage.*
+*.coverage
+
 Test/ 
 
 # production
