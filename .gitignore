@@ -29,11 +29,9 @@ yarn-error.log*
 pagina/apps/business_rules_tests.py
 bandit-report.json
 pytest.ini
-.gitignore
 semgrep.json
 apps/business_rules_tests.py
 apps/security_tests.py
-.gitignore
 apps/__pycache__/sql_injection_raw_extra_tests.cpython-312-pytest-9.0.2.pyc
 apps/test_all_apps.py
 apps/sql_injection_raw_extra_tests.py
