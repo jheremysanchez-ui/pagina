@@ -13,7 +13,7 @@ Test/
 #/build
 
 # misc
-*/.env
+*.env
 .env
 .DS_Store
 .env.local
@@ -32,10 +32,11 @@ pytest.ini
 semgrep.json
 apps/business_rules_tests.py
 apps/security_tests.py
-__pycache__/*.py
+__pycache__/.py
+/__pycache__/.py
 apps/__pycache__/sql_injection_raw_extra_tests.cpython-312-pytest-9.0.2.pyc
 apps/test_all_apps.py
 apps/sql_injection_raw_extra_tests.py
 apps/SQL_test.py
 apps/crud_test.py
-apps/payment_tess
+apps/payment_tests.py
