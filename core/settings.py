@@ -16,17 +16,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 DOMAIN = os.environ.get('DOMAIN')
 
 ALLOWED_HOSTS = [
-    '127.0.0.1',
-    'localhost',
-    '192.168.19.138',
-    'lapp-virtual-machine.tail71f65f.ts.net',
-    'lapp-virtual-machine',
-    '100.105.44.111'
+    'www.fullpcstore.com',
+    'fullpcstore.com',
     ]
 
 #RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
@@ -125,57 +121,55 @@ DATABASES = {
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
 CORS_ALLOWED_ORIGINS  = [
-    'http://localhost:8000',
-    'http://localhost:3000',
     'http://127.0.0.1:8000',
     'http://127.0.0.1:3000',
-    'http://192.168.19.138:8000',
-    'http://192.168.19.138:3000',
-    'http://lapp-virtual-machine.tail71f65f.ts.net:8000',
-    'http://lapp-virtual-machine.tail71f65f.ts.net:3000',
-    'http://100.105.44.111:8000',
-    'http://100.105.44.111:3000'
+    'https://fullpcstore.com',
+    'https://www.fullpcstore.com',
 ]
 
 CORS_ALLOW_HEADERS = list(default_headers) + [
-    "authorization",
+    'authorization',
+    'content-type',
 ]
 
 
 CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:8000',
-    'http://localhost:3000',
     'http://127.0.0.1:8000',
     'http://127.0.0.1:3000',
-    'http://192.168.19.138:8000',
-    'http://192.168.19.138:3000',
-    'http://lapp-virtual-machine.tail71f65f.ts.net:8000',
-    'http://lapp-virtual-machine.tail71f65f.ts.net:3000',
-    'http://100.105.44.111:8000',
-    'http://100.105.44.111:3000'
+    'https://fullpcstore.com',
+    'https://www.fullpcstore.com',
 ]
 
 # En producción, acctivar estas opciones de seguridad
 
-SESSION_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = True
 
-CSRF_COOKIE_SECURE = False
+SECURE_SSL_REDIRECT = True
 
-SESSION_COOKIE_HTTPONLY = False
+CSRF_COOKIE_SECURE = True
+
 
 SECURE_HSTS_SECONDS = 31536000
 
-SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
-SECURE_HSTS_PRELOAD = False
+SECURE_HSTS_PRELOAD = True
 
-SECURE_CONTENT_TYPE_NOSNIFF = False
 
-SECURE_SSL_REDIRECT = False
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+SECURE_BROWSER_XSS_FILTER = True
+
 
 X_FRAME_OPTIONS = 'DENY'
 
-SECURE_BROWSER_XSS_FILTER = False
+
+# si usas Nginx como proxy:
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+USE_X_FORWARDED_HOST = True
+
+#SESSION_COOKIE_HTTPONLY = False
+
 
 
 
@@ -244,9 +238,9 @@ AUTHENTICATION_BACKENDS = (
 
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT', ),
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=900),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-    'ROTATE_REFRESFH_TOKENS': True,
+    'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
     'AUTH_TOKEN_CLASSES': (
         'rest_framework_simplejwt.tokens.AccessToken',
@@ -267,7 +261,12 @@ DJOSER = {
     'ACTIVATION_URL': 'activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
     'SOCIAL_AUTH_TOKEN_STRATEGY': 'djoser.social.token.jwt.TokenStrategy',
-    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://localhost:8000/google', 'http://localhost:8000/facebook'],
+    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': [
+        'http://localhost:8000/google', 
+        'http://localhost:8000/facebook'
+        'https://fullpcstore.com/google',
+        'https://fullpcstore.com/facebook',
+        ],
     'SERIALIZERS': {
         'user_create': 'apps.user.serializers.UserCreateSerializer',
         'user': 'apps.user.serializers.UserCreateSerializer',
