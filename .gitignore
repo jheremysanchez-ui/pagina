@@ -12,7 +12,7 @@ Test/
 
 # production
 #/build
-/bin
+bin/
 # misc
 *.env
 .env
